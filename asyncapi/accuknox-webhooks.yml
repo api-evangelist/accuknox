@@ -1,0 +1,63 @@
+generated: '2026-09-06'
+method: searched
+source: https://help.accuknox.com/integrations/webhook-integration/
+spec_type: none
+asyncapi: false
+note: >-
+  AccuKnox documents an outbound webhook surface but publishes no AsyncAPI document and no
+  event catalogue. Nothing here is fabricated: the payload below is the example AccuKnox
+  publishes verbatim, and every field it does not document is recorded as unknown rather
+  than filled in. An AsyncAPI document, a named event list and a signing scheme are the
+  three things missing that would make this consumable by an agent without a human reading
+  the page first.
+surface:
+  kind: outbound-webhook
+  module: CWPP (workload / runtime security)
+  configuration_path: Settings -> Integration -> CWPP -> Notification
+  docs: https://help.accuknox.com/integrations/webhook-integration/
+transport:
+  methods: [POST, PUT, GET]
+  note: The HTTP method is chosen by the subscriber when configuring the integration.
+  url: subscriber-supplied
+  expected_status_codes: subscriber-supplied (examples given - 200, 204, 422)
+  custom_headers: supported (e.g. Authorization)
+  test_connection: required before the integration can be activated
+trigger_model:
+  kind: alert-trigger
+  description: >-
+    Subscribers create alert triggers that match runtime policy violations on fields such as
+    Action, PolicyName and ProcessName; a matching violation dispatches the payload.
+  named_events: []
+  named_events_note: >-
+    AccuKnox publishes no event-type vocabulary. Events are defined by the subscriber's own
+    filter, not by a provider-declared event name.
+payload:
+  content_type: application/json
+  example_published_verbatim:
+    Action: Block
+    Message: Detected and prevented compromise to File integrity
+    PolicyName: harden-file-integrity-monitoring
+    ProcessName: /bin/touch
+    Tags: MITRE_T1036,MITRE_T1565
+  fields:
+  - {name: Action, description: 'enforcement action taken (e.g. Block)'}
+  - {name: Message, description: human-readable description of what was detected}
+  - {name: PolicyName, description: the KubeArmor/AccuKnox policy that fired}
+  - {name: ProcessName, description: the process that triggered the violation}
+  - {name: Tags, description: 'comma-separated MITRE ATT&CK technique identifiers (e.g. MITRE_T1036)'}
+delivery_semantics:
+  retries: undocumented
+  backoff: undocumented
+  ordering: undocumented
+  at_least_once: undocumented
+security:
+  signing: none documented
+  hmac: none documented
+  verification: >-
+    No request signing, HMAC or payload verification is documented. Authentication of the
+    callback is left to a custom Authorization header the subscriber supplies.
+related_integrations:
+- {name: Slack, url: 'https://help.accuknox.com/integrations/slack/'}
+- {name: Email, url: 'https://help.accuknox.com/integrations/email/'}
+- {name: Sumo Logic webhook, url: 'https://help.accuknox.com/integrations/sumologic-webhook/'}
+- {name: Splunk app, url: 'https://github.com/accuknox/splunk'}

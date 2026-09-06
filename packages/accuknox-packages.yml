@@ -1,0 +1,92 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  Go module proxy (proxy.golang.org), the Terraform Registry API, npm registry, PyPI, and
+  the accuknox GitHub organization.
+note: >-
+  AccuKnox publishes NO first-party language client SDK. npm, PyPI, RubyGems, Maven Central,
+  NuGet and crates.io carry nothing under an accuknox name — every registry query returned
+  404. What AccuKnox does ship is Go tooling (the knoxctl CLI), a Terraform provider, and
+  CI/CD plugins distributed through the GitHub Actions Marketplace rather than a package
+  registry. No `SDKs` pointer is emitted, because there is no client library to point at.
+packages:
+- language: go
+  registry: go-modules
+  name: github.com/accuknox/accuknox-cli-v2
+  url: https://pkg.go.dev/github.com/accuknox/accuknox-cli-v2
+  install: go install github.com/accuknox/accuknox-cli-v2@latest
+  official: true
+  version: v0.10.1
+  published: '2026-07-14'
+  kind: cli
+  note: knoxctl — the current AccuKnox CLI. Command surface captured in cli/accuknox-cli.yml.
+- language: go
+  registry: go-modules
+  name: github.com/accuknox/accuknox-cli
+  url: https://pkg.go.dev/github.com/accuknox/accuknox-cli
+  install: go install github.com/accuknox/accuknox-cli@latest
+  official: true
+  version: v0.1.0
+  published: '2023-05-06'
+  kind: cli
+  note: >-
+    Superseded first-generation kArmor CLI. Last tagged release 2023-05-06, three years
+    before the current API surface — an abandonment signal, not a live client.
+- language: hcl
+  registry: terraform
+  name: accuknox/accuknox
+  url: https://registry.terraform.io/providers/accuknox/accuknox/latest
+  install: 'terraform { required_providers { accuknox = { source = "accuknox/accuknox" } } }'
+  official: true
+  version: 1.0.0
+  published: '2023-11-02'
+  kind: infrastructure-provider
+  tier: partner
+  downloads: 4458
+  note: >-
+    Terraform provider for KubeArmor and Discovery Engine, not for the SaaS Platform REST
+    API. Last published 2023-11-02.
+- language: go
+  registry: go-modules
+  name: github.com/kubearmor/kubearmor-client
+  url: https://pkg.go.dev/github.com/kubearmor/kubearmor-client
+  install: go install github.com/kubearmor/kubearmor-client@latest
+  official: true
+  version: v1.4.9
+  published: '2026-07-07'
+  kind: cli
+  note: >-
+    karmor, the client for KubeArmor. KubeArmor is a CNCF project AccuKnox created and
+    still maintains, but it is governed in the kubearmor GitHub organization, not accuknox.
+- language: python
+  registry: null
+  name: accuknox mcp_server
+  url: https://github.com/accuknox/mcp_server
+  install: git clone https://github.com/accuknox/mcp_server
+  official: true
+  version: null
+  published: null
+  kind: mcp-server
+  note: >-
+    Checked, nothing to record — the MCP server is distributed as source only. No PyPI
+    package, no tagged release, so a consumer cannot pin a version.
+registries_checked:
+- {registry: npm, queries: [accuknox, '@accuknox/mcp', knoxctl], result: 404}
+- {registry: pypi, queries: [accuknox, accuknox-cli, aspm-scanner-cli, codeassure-cli, knoxctl, accuknox-jobs], result: 404}
+- {registry: terraform, queries: [accuknox/accuknox], result: 200}
+- {registry: go-modules, queries: [accuknox-cli-v2, accuknox-cli, terraform-provider-accuknox, kubearmor-client], result: 200}
+distribution_without_a_registry:
+- kind: github-action
+  note: >-
+    AccuKnox ships its CI/CD scanners as GitHub Actions with no package-registry metadata
+    endpoint — version is whatever ref the consumer pins in their workflow.
+  items:
+  - https://github.com/accuknox/sast-scan-action
+  - https://github.com/accuknox/container-scan-action
+  - https://github.com/accuknox/iac-scan-action
+  - https://github.com/accuknox/secret-scan-action
+  - https://github.com/accuknox/dast-scan-action
+  - https://github.com/accuknox/install-action
+  - https://github.com/accuknox/report-action
+  - https://github.com/accuknox/xbom-action
+  - https://github.com/accuknox/sast-scan-opengrep-action

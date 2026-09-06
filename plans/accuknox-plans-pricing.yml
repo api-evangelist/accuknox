@@ -1,0 +1,38 @@
+generated: '2026-09-06'
+method: searched
+source: https://accuknox.com/pricing
+plan_count: 0
+public_pricing: false
+note: >-
+  AccuKnox publishes no priced tiers. The pricing page is a "Pricing Request" form whose own
+  wording is: "Pricing model depends on a few factors specific to your environment, so we'll
+  need to get in touch to give you accurate pricing information." It names four licensing
+  shapes with no numbers attached — pay as you go, pay for what you use, individual security
+  modules, or the comprehensive CNAPP bundle — and defines the billable unit as a "workload"
+  ("the set of computing tasks or processes that an application or service performs",
+  covering storage, compute and network instances). No currency, billing period, quota,
+  overage rate or per-node price is published. This is an honest zero, not a gap in the probe.
+licensing_models:
+- pay as you go
+- pay for what you use
+- individual security modules
+- comprehensive CNAPP bundle
+billable_unit:
+  name: workload
+  definition: >-
+    "the set of computing tasks or processes that an application or service performs" —
+    storage, compute and network instances
+plans: []
+trial:
+  url: https://accuknox.com/free-trial
+  status: 200
+  note: A free-trial request form; no self-serve tier, duration or quota is published.
+third_party_listings:
+- url: https://swc.saas.ibm.com/en-us/redhat-marketplace/products/accuknox-cnapp/pricing
+  note: >-
+    A Red Hat Marketplace listing carries pricing for the AccuKnox CNAPP product. It is a
+    marketplace's page, not AccuKnox's own published pricing, so it is recorded as context
+    and not counted as a plan.
+evidence:
+- {url: 'https://accuknox.com/pricing', status: 200}
+- {url: 'https://accuknox.com/free-trial', status: 200}

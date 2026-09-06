@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package v1.worker;
+
+option go_package = "github.com/accuknox/knoxAutoPolicy/protos/v1/worker";
+
+service Worker {
+    rpc GetWorkerStatus (WorkerRequest) returns (WorkerResponse);
+    rpc Start (WorkerRequest) returns (WorkerResponse);
+    rpc Stop (WorkerRequest) returns (WorkerResponse);
+    rpc Convert (WorkerRequest) returns (WorkerResponse);
+}
+
+message WorkerRequest {
+    string policytype = 1;
+    string req = 2;
+    string logfile = 3;
+    string namespace = 4;
+    string clustername = 5;
+    string labels = 6;
+    string fromsource = 7;
+    bool includenetwork = 8;
+}
+
+message WorkerResponse {
+    string res = 1;
+    repeated Policy kubearmorpolicy = 2;
+    repeated Policy ciliumpolicy = 3;
+    repeated Policy k8sNetworkpolicy = 4;
+    repeated Policy admissionControllerPolicy = 5;
+}
+
+message Policy {
+    bytes Data = 1;
+}

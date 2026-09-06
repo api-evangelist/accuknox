@@ -1,0 +1,115 @@
+generated: '2026-09-06'
+method: probed
+source: live GET of the named /.well-known/ path list on every host this record knows
+note: >-
+  Nothing was served. Every named path returned 404 on accuknox.com, www.accuknox.com,
+  cspm.accuknox.com and cspm.demo.accuknox.com; help.accuknox.com is an S3-backed static
+  site that answers 403 AccessDenied for any path it does not have; and app.accuknox.com
+  is a single-page-app catch-all that answers 200 with the same 5,284-byte HTML shell for
+  every path, including the negative control that cannot exist. No WellKnown or SecurityTxt
+  pointer is emitted, because no host served a real document. AccuKnox does serve a live
+  anonymous JWKS at /api/v1/jwks/ on its tenant API hosts, but that is not a /.well-known/
+  path and is recorded in authentication/accuknox-authentication.yml instead.
+hit_count: 0
+path_echo_control: passed
+soft_404_control:
+  host: https://app.accuknox.com
+  path: /.well-known/accuknox-negative-control-7f3ab91c.json
+  status: 200
+  bytes: 5284
+  verdict: catch-all SPA shell — every path on this host returns the same body
+hosts:
+- host: https://accuknox.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/apis.json, status: 404}
+  - {path: /apis.json, status: 404}
+  - {path: /apis.yml, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /.well-known/aauth-resource.json, status: 404}
+  - {path: /.well-known/accuknox-negative-control-7f3ab91c.json, status: 404}
+- host: https://www.accuknox.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/apis.json, status: 404}
+  - {path: /apis.json, status: 404}
+  - {path: /apis.yml, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /.well-known/aauth-resource.json, status: 404}
+  - {path: /.well-known/accuknox-negative-control-7f3ab91c.json, status: 404}
+- host: https://help.accuknox.com
+  note: S3 static origin — 403 AccessDenied on every unmatched path, not a served document
+  documents:
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/openid-configuration, status: 403}
+  - {path: /.well-known/oauth-authorization-server, status: 403}
+  - {path: /.well-known/oauth-protected-resource, status: 403}
+  - {path: /.well-known/api-catalog, status: 403}
+  - {path: /.well-known/ai-plugin.json, status: 403}
+  - {path: /.well-known/apis.json, status: 403}
+  - {path: /apis.json, status: 403}
+  - {path: /apis.yml, status: 403}
+  - {path: /.well-known/agent-card.json, status: 403}
+  - {path: /.well-known/agent.json, status: 403}
+  - {path: /.well-known/aauth-resource.json, status: 403}
+  - {path: /.well-known/accuknox-negative-control-7f3ab91c.json, status: 403}
+- host: https://app.accuknox.com
+  note: >-
+    SPA catch-all. Every path returns HTTP 200 with an identical 5,284-byte HTML shell,
+    including the negative control. Every 200 below is a MISS, not a document.
+  documents:
+  - {path: /.well-known/security.txt, status: 200, verdict: html-shell}
+  - {path: /.well-known/openid-configuration, status: 200, verdict: html-shell}
+  - {path: /.well-known/oauth-authorization-server, status: 200, verdict: html-shell}
+  - {path: /.well-known/oauth-protected-resource, status: 200, verdict: html-shell}
+  - {path: /.well-known/api-catalog, status: 200, verdict: html-shell}
+  - {path: /.well-known/ai-plugin.json, status: 200, verdict: html-shell}
+  - {path: /.well-known/apis.json, status: 200, verdict: html-shell}
+  - {path: /apis.json, status: 200, verdict: html-shell}
+  - {path: /apis.yml, status: 200, verdict: html-shell}
+  - {path: /.well-known/agent-card.json, status: 200, verdict: html-shell}
+  - {path: /.well-known/agent.json, status: 200, verdict: html-shell}
+  - {path: /.well-known/aauth-resource.json, status: 200, verdict: html-shell}
+  - {path: /.well-known/accuknox-negative-control-7f3ab91c.json, status: 200, verdict: html-shell}
+- host: https://cspm.accuknox.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/apis.json, status: 404}
+  - {path: /apis.json, status: 404}
+  - {path: /apis.yml, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /.well-known/aauth-resource.json, status: 404}
+  - {path: /.well-known/accuknox-negative-control-7f3ab91c.json, status: 404}
+- host: https://cspm.demo.accuknox.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/apis.json, status: 404}
+  - {path: /apis.json, status: 404}
+  - {path: /apis.yml, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /.well-known/aauth-resource.json, status: 404}
+  - {path: /.well-known/accuknox-negative-control-7f3ab91c.json, status: 404}

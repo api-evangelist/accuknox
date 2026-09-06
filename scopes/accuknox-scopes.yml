@@ -1,0 +1,25 @@
+generated: '2026-09-06'
+method: searched
+source: https://help.accuknox.com/integrations/oauth/
+docs: https://help.accuknox.com/integrations/oauth/
+note: >-
+  AccuKnox documents a real OAuth 2.0 authorization-code surface but publishes NO scope
+  vocabulary. Its OAuth page states that access is governed by role-based authentication on
+  the AccuKnox user profile, not by scopes on the token, and no scopes appear in any
+  authorization request example. scope_count is therefore an honest zero, and NO
+  `OAuthScopes` pointer is wired into apis.yml — a pointer of that name against a document
+  containing no scopes would assert a surface AccuKnox does not publish.
+scope_count: 0
+schemes:
+- name: oauth2
+  source: https://help.accuknox.com/integrations/oauth/
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://cspm.<tenant>.accuknox.com/api/v1/o/authorize/
+    tokenUrl: https://cspm.<tenant>.accuknox.com/api/v1/o/token/
+scopes: []
+authorization_model:
+  style: role-based
+  evidence: >-
+    "role based authentication" on the AccuKnox user profile, per
+    https://help.accuknox.com/integrations/oauth/

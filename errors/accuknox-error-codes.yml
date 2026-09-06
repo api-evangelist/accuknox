@@ -1,0 +1,55 @@
+generated: '2026-09-06'
+method: probed
+source: live anonymous requests to https://cspm.accuknox.com and https://cspm.demo.accuknox.com
+format: custom
+rfc9457: false
+note: >-
+  AccuKnox publishes no error reference and no OpenAPI to derive 4xx/5xx responses from.
+  What follows is only what was actually observed on the wire from anonymous requests, plus
+  the two envelope shapes those responses used. It is deliberately short: an invented error
+  catalogue would be worth less than an honest four-row one. The full error surface is
+  behind authentication.
+envelopes:
+- name: drf-detail
+  shape: '{"detail": "<message>"}'
+  content_type: application/json
+- name: accuknox-error
+  shape: '{"error": {"status_code": <int>, "message": "<string>", "detail": {"url": "<string>"}}}'
+  content_type: application/json
+problems:
+- status: 403
+  envelope: drf-detail
+  title: Authentication credentials were not provided
+  body: '{"detail":"Authentication credentials were not provided."}'
+  remediation: >-
+    Send an Authorization: Bearer <token> header with an AccuKnox API token created under
+    Settings -> Tokens.
+  observed_at: https://cspm.accuknox.com/api/v1/assets
+  note: >-
+    Django REST Framework answers 403 rather than 401 for a missing credential, and returns
+    no WWW-Authenticate challenge — an agent cannot discover the auth scheme from the
+    response alone.
+- status: 404
+  envelope: accuknox-error
+  title: Nothing matches the given URI
+  body: '{"error": {"status_code": 404, "message": "Nothing matches the given URI", "detail": {"url": "..."}}}'
+  remediation: Check the path; the tenant API only routes under /api/v1/.
+  observed_at: https://cspm.accuknox.com/api/v1/
+- status: 302
+  envelope: none
+  title: Redirect to Django admin login
+  remediation: >-
+    The interactive API documentation and the OAuth authorize endpoint redirect anonymous
+    callers to /admin/login/. Authenticate in the console first.
+  observed_at: https://cspm.accuknox.com/api/swagger/?format=openapi
+  redirect_to: https://cspm.accuknox.com/admin/login/?next=/api/swagger/%3Fformat%3Dopenapi
+- status: 403
+  envelope: xml
+  title: AccessDenied
+  remediation: Not an API error — help.accuknox.com is an S3-backed static docs origin.
+  observed_at: https://help.accuknox.com/.well-known/security.txt
+  note: Recorded so a future run does not read this 403 as an authorization wall on the API.
+coverage:
+  documented_error_reference: false
+  observed_statuses: [302, 403, 404]
+  note: 5xx behaviour was not observed and is not documented.

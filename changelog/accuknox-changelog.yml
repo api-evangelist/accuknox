@@ -1,0 +1,43 @@
+generated: '2026-09-06'
+method: searched
+source: https://help.accuknox.com/getting-started/accuknox-release-notes/
+scheme: major.minor
+current_version: '3.6'
+dated: false
+note: >-
+  AccuKnox maintains a versioned release-notes index covering thirteen platform releases
+  from v1.5 to v3.6. It is a product changelog, not an API changelog — release pages carry
+  no publication dates, no API-version markers and no breaking-change section, so a consumer
+  cannot tell from it when or whether the /api/v1/ surface changed. Recent window captured
+  below; the live index remains the source of truth.
+entries:
+- version: '3.6'
+  url: https://help.accuknox.com/getting-started/3.6-release/
+  date: null
+  breaking: none stated
+  highlights:
+  - Finding lifecycle automation — Active -> Waiting for Verification -> Fixed on confirmed remediation
+  - Status logs recording who changed a finding status and when
+  - SBOM license findings as a new finding type
+  - AWS onboarding by CloudFormation role ARN, no stored access keys
+  - Checks Management — enable/disable individual checks per account, adjust severity
+  - Security Graph for asset relationships and attack paths
+  - Microsoft 365 SSPM CIS benchmark scanning
+  - AWS Service Control Policy builder; YAML policy import/export; bulk policy actions
+  - Event Trail audit logging for certificates, cloud accounts, collectors, policies, registries
+  - Ubuntu 22.04/24.04 STIG and CIS profiles; KubeArmor DNS enforcement, file integrity hashes, ECS Fargate
+  - SAMA compliance framework for the Saudi financial sector
+  - MFA-enabled DAST via browser recorder with TOTP
+- {version: '3.5', url: 'https://help.accuknox.com/getting-started/3.5-release/', date: null}
+- {version: '3.4', url: 'https://help.accuknox.com/getting-started/3.4-release/', date: null}
+- {version: '3.3', url: 'https://help.accuknox.com/getting-started/3.3-release/', date: null}
+- {version: '3.2', url: 'https://help.accuknox.com/getting-started/3.2-release/', date: null}
+- {version: '3.1', url: 'https://help.accuknox.com/getting-started/3.1-release/', date: null}
+- {version: '3.0', url: 'https://help.accuknox.com/getting-started/3.0-release/', date: null}
+- {version: '2.4', url: 'https://help.accuknox.com/getting-started/2.4-release/', date: null}
+- {version: '2.1-2.2', url: 'https://help.accuknox.com/getting-started/2.1-2.2-release/', date: null}
+- {version: '2.0', url: 'https://help.accuknox.com/getting-started/2.0-release/', date: null}
+- {version: '1.7', url: 'https://help.accuknox.com/getting-started/1-7-release/', date: null}
+- {version: '1.6', url: 'https://help.accuknox.com/getting-started/1-6-release/', date: null}
+- {version: '1.5', url: 'https://help.accuknox.com/getting-started/1-5-release/', date: null}
+entry_count: 13

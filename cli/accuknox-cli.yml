@@ -1,0 +1,60 @@
+generated: '2026-09-06'
+method: searched
+source: https://help.accuknox.com/knoxctl/
+binary: knoxctl
+repository: https://github.com/accuknox/accuknox-cli-v2
+package: packages/accuknox-packages.yml
+version: v0.10.1
+released: '2026-07-14'
+note: >-
+  knoxctl is AccuKnox's first-party CLI. It is both an operator tool (onboarding, KubeArmor
+  policy work, image scanning) and a thin client over the SaaS Platform API — the
+  `knoxctl api` command group is the only publicly documented way to call the platform API
+  by example, since AccuKnox publishes no API reference.
+install:
+- method: go
+  command: go install github.com/accuknox/accuknox-cli-v2@latest
+- method: source
+  command: git clone https://github.com/accuknox/accuknox-cli-v2
+docs:
+- {title: knoxctl overview, url: 'https://help.accuknox.com/knoxctl/'}
+- {title: knoxctl commands, url: 'https://help.accuknox.com/knoxctl/knoxctl-commands/'}
+- {title: knoxctl configuration, url: 'https://help.accuknox.com/knoxctl/knoxctl-config/'}
+- {title: knoxctl KubeArmor, url: 'https://help.accuknox.com/knoxctl/kubearmor/'}
+- {title: knoxctl image scan, url: 'https://help.accuknox.com/knoxctl/image-scan/'}
+- {title: knoxctl miscellaneous, url: 'https://help.accuknox.com/knoxctl/miscellaneous/'}
+- {title: xBOM with knoxctl, url: 'https://help.accuknox.com/getting-started/xbom-knoxctl/'}
+commands:
+- group: api
+  description: Query the AccuKnox SaaS Platform API from the command line.
+  subcommands:
+  - name: api cluster list
+    description: List onboarded clusters, optionally including their nodes.
+    flags:
+    - {name: --clusterjq, description: jq expression applied to the cluster result}
+    - {name: --nodes, description: include node information}
+    - {name: --nodejq, description: jq expression applied to the node result}
+    - {name: --json, description: machine-readable JSON output}
+  - name: api cluster alerts
+    description: Retrieve runtime alerts and policy violations.
+    flags:
+    - {name: --stime, description: start time as a Unix timestamp}
+    - {name: --filters, description: 'field-based filtering with operators such as "match"'}
+    - {name: --alertjq, description: jq expression applied to the alert result}
+    - {name: --page-size, description: page size for the result set}
+    - {name: --json, description: machine-readable JSON output}
+- group: kubearmor
+  description: Install, inspect and manage KubeArmor runtime enforcement in a cluster.
+  docs: https://help.accuknox.com/knoxctl/kubearmor/
+- group: scan
+  description: Container image scanning from the CLI, with results shipped to the platform.
+  docs: https://help.accuknox.com/knoxctl/image-scan/
+- group: xbom
+  description: Generate an extended bill of materials (xBOM) for a workload or repository.
+  docs: https://help.accuknox.com/getting-started/xbom-knoxctl/
+agent_notes:
+  json_output: true
+  note: >-
+    Every documented api subcommand accepts --json and a jq expression, which makes knoxctl
+    the most machine-usable published entry point to the platform — more so than the REST
+    surface, which has no public reference.

@@ -64,5 +64,38 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-AccuKnox is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+AccuKnox is a Zero Trust cloud-native application protection platform (CNAPP) covering cloud
+security posture management (CSPM), workload and Kubernetes runtime security (CWPP),
+application security posture management (ASPM), AI/ML model security (AI-SPM / ModelKnox) and
+API security. AccuKnox originated KubeArmor, the eBPF/LSM runtime enforcement engine now
+governed as a CNCF project.
+
+## What this profile found
+
+- **REST API, no public contract.** A token-authenticated REST surface runs under `/api/v1/`
+  on per-tenant `cspm.<tenant>.accuknox.com` hosts. It is real and live — `/api/v1/assets`
+  answers `403 {"detail":"Authentication credentials were not provided."}` anonymously — but
+  the Swagger UI and ReDoc at `/api/swagger/` and `/api/redoc/` redirect to a Django admin
+  login, so no machine-readable OpenAPI is published. No OpenAPI was authored from the
+  observed endpoints.
+- **11 first-party Protobuf contracts**, saved verbatim in `grpc/` — 12 services and 31 RPCs
+  across [Discovery Engine](https://github.com/accuknox/discovery-engine) (policy discovery,
+  observability, config, worker/consumer control) and
+  [SentryFlow](https://github.com/accuknox/SentryFlow) (API observability and classification).
+- **A first-party MCP server** at [accuknox/mcp_server](https://github.com/accuknox/mcp_server)
+  — 7 tools over stdio, distributed as source. There is no hosted remote endpoint, so an agent
+  cannot reach AccuKnox without a human installing and running the server first.
+- **A published `/llms.txt`** at `https://accuknox.com/llms.txt` (HTTP 200), saved verbatim in
+  `llms/`. It is a 2.1 MB full-site content dump rather than a curated link index.
+- **`knoxctl`**, the first-party Go CLI, whose `knoxctl api` command group with `--json` and jq
+  filters is the most machine-usable published entry point to the platform.
+- **A coordinated disclosure programme** at `https://accuknox.com/security-advisories`
+  (security@accuknox.com), and a live status page at `https://status.accuknox.com/`.
+
+## Honest gaps
+
+No OpenAPI, no AsyncAPI, no A2A agent card, no `/.well-known/` document on any host, no
+`security.txt`, no OIDC discovery, no published OAuth scopes, no rate limits, no public
+pricing, no idempotency mechanism, and no documented reversal operation or window for any
+write. Each of these is recorded as a measured absence with the URL and status that was
+probed, not as an omission.

@@ -1,0 +1,78 @@
+generated: '2026-09-06'
+method: searched
+source: https://help.accuknox.com/integrations/oauth/
+docs: https://help.accuknox.com/how-to/how-to-create-tokens/
+note: >-
+  Derived mechanically from OpenAPI is not possible here — AccuKnox publishes no
+  machine-readable contract (its Swagger UI at /api/swagger/ redirects to a Django admin
+  login). This profile is assembled from AccuKnox's own documentation and from its
+  first-party MCP server source, plus one anonymous live probe of the JWKS endpoint.
+summary:
+  types: [http, oauth2]
+  http_schemes: [bearer]
+  api_key_in: [header]
+  oauth2_flows: [authorizationCode]
+  token_signing: RS256
+schemes:
+- name: apiToken
+  type: http
+  scheme: bearer
+  header: Authorization
+  format: 'Authorization: Bearer <token>'
+  description: >-
+    AccuKnox API token. Created in the console under Settings -> Tokens with a name and an
+    operator-chosen expiration; shown once at creation and never again. Used for cron-job
+    deployments and integrations (KIEM, Kubernetes CIS Benchmark, cluster misconfiguration).
+  sources:
+  - https://help.accuknox.com/how-to/how-to-create-tokens/
+  - https://github.com/accuknox/mcp_server/blob/main/shared/api.py
+- name: accessKey
+  type: http
+  scheme: bearer
+  description: >-
+    Access keys, a separate credential class used to onboard clusters and virtual machines
+    to a tenant rather than to call the platform API directly.
+  sources:
+  - https://help.accuknox.com/how-to/create-access-keys/
+  - https://help.accuknox.com/how-to/cluster-onboarding-access-keys/
+  - https://help.accuknox.com/how-to/vm-onboard-access-keys/
+- name: oauth2
+  type: oauth2
+  description: >-
+    OAuth 2.0 for third-party applications. Developers register an OAuth application with
+    AccuKnox, supplying redirect URIs, and receive a client id and client secret.
+    Short-lived access tokens plus long-lived refresh tokens.
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://cspm.<tenant>.accuknox.com/api/v1/o/authorize/
+    tokenUrl: https://cspm.<tenant>.accuknox.com/api/v1/o/token/
+    scopes: {}
+    note: >-
+      No scope vocabulary is published. AccuKnox documents authorization as role-based on
+      the user profile rather than scope-based on the token. See scopes/accuknox-scopes.yml.
+  sources:
+  - https://help.accuknox.com/integrations/oauth/
+jwks:
+  url: https://cspm.<tenant>.accuknox.com/api/v1/jwks/
+  algorithm: RS256
+  key_type: RSA
+  anonymous: true
+  probed:
+  - {url: 'https://cspm.accuknox.com/api/v1/jwks/', status: 200, content_type: application/json}
+  - {url: 'https://cspm.demo.accuknox.com/api/v1/jwks/', status: 200, content_type: application/json}
+  - {url: 'https://cspm.dev.accuknox.com/api/v1/jwks/', status: 200, content_type: application/json}
+  note: >-
+    Each tenant host publishes its own RSA signing key set anonymously. AccuKnox's own MCP
+    server verifies inbound JWTs against this endpoint (shared/utils/auth_validator.py),
+    so it is the documented verification surface for the platform's tokens.
+unauthenticated_behaviour:
+  probed_url: https://cspm.accuknox.com/api/v1/assets
+  status: 403
+  body: '{"detail":"Authentication credentials were not provided."}'
+  note: Django REST Framework default — 403, not 401, and no WWW-Authenticate challenge.
+tenancy:
+  pattern: https://cspm.<tenant>.accuknox.com
+  observed: [cspm.accuknox.com, cspm.demo.accuknox.com, cspm.dev.accuknox.com]
+  note: >-
+    The API host is per tenant. AccuKnox's own MCP server takes the host as the
+    ACCUKNOX_BASE_URL environment variable rather than hard-coding one.

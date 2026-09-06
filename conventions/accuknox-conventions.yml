@@ -1,0 +1,130 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://help.accuknox.com/integrations/oauth/, https://help.accuknox.com/how-to/how-to-create-tokens/,
+  AccuKnox's own MCP server source (github.com/accuknox/mcp_server, shared/api.py +
+  fastmcp_server.py), and live anonymous probes of cspm.accuknox.com.
+note: >-
+  AccuKnox publishes no OpenAPI, so nothing here is derived from a spec. Everything below is
+  either documented by AccuKnox or read out of AccuKnox's own first-party client code, and
+  each block says which. Where a convention is simply not published, it is recorded as
+  absent rather than guessed.
+authentication:
+  style: bearer-token
+  header: Authorization
+  format: 'Bearer <token>'
+  alternatives: [oauth2-authorization-code]
+  detail: authentication/accuknox-authentication.yml
+base_url:
+  pattern: https://cspm.<tenant>.accuknox.com
+  path_prefix: /api/v1/
+  note: Per-tenant host; the tenant segment is operator-supplied, not fixed.
+pagination:
+  style: page-number
+  params:
+  - {name: page, default: 1}
+  - {name: page_size, default: 100, note: 'AccuKnox''s own MCP client defaults to 100; finding tools default to 5'}
+  response_fields: [count, results]
+  source: >-
+    github.com/accuknox/mcp_server shared/api.py (GET /api/v1/assets) and fastmcp_server.py
+    (get_finding)
+  note: >-
+    Cursor pagination is not offered. No Link header pagination is documented.
+sorting:
+  param: ordering
+  style: 'field name, prefixed with "-" for descending'
+  observed_default: '-last_seen'
+  source: github.com/accuknox/mcp_server fastmcp_server.py get_finding
+filtering:
+  free_text_param: search
+  field_filters:
+    style: query parameters on the collection
+    observed: [id, type_name, type_category, label_name, region, cloud_provider, depth, present_on_date_after, present_on_date_before, deployed]
+  advanced:
+    style: JSON body with grouped conditions
+    shape: 'groups[].conditions[] of {target, property, operator, values}, combined by combinator AND/OR'
+    operators_observed: [in_range, is]
+    endpoint: POST /api/v1/modelknox/ai-assets/
+    note: >-
+      A POST-bodied query surface used for AI asset search. It is a read operation expressed
+      as a POST, not a write.
+  discoverability:
+    note: >-
+      Valid filter and display fields are not published as a static reference; they are
+      returned at runtime by the finding configuration endpoint that backs the MCP
+      get_finding_config and get_finding_filter tools.
+field_selection:
+  param: display_fields
+  note: >-
+    A caller names the fields to return. Omitting it returns counts only. Read from
+    fastmcp_server.py get_finding.
+aggregation:
+  param: group_by
+  note: Server-side grouping of findings by a supported field.
+metadata:
+  note: Not published.
+request_tracing:
+  header: null
+  note: >-
+    No request-id or correlation header is documented, and none was returned on the
+    anonymous probes. An agent has no published handle for supporting a failed call.
+versioning:
+  style: uri-path
+  current: v1
+  detail: lifecycle/accuknox-lifecycle.yml
+error_envelope:
+  shapes:
+  - name: drf-detail
+    shape: '{"detail": "<message>"}'
+    observed:
+      url: https://cspm.accuknox.com/api/v1/assets
+      status: 403
+      body: '{"detail":"Authentication credentials were not provided."}'
+  - name: accuknox-error
+    shape: '{"error": {"status_code": <int>, "message": "<string>", "detail": {"url": "<string>"}}}'
+    observed:
+      url: https://cspm.accuknox.com/api/v1/
+      status: 404
+  format: custom
+  rfc9457: false
+  note: >-
+    Two different envelopes are served by the same host depending on which layer answers.
+    Neither is application/problem+json. Detail in errors/accuknox-error-codes.yml.
+rate_limit_signaling:
+  headers: []
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header was observed on any anonymous
+    response, and no limits are documented. See rate-limits/accuknox-rate-limits.yml.
+idempotency:
+  supported: false
+  coverage: none
+  header: null
+  note: >-
+    No idempotency key header, no replay-protection mechanism and no retry-safety guidance
+    appear anywhere in AccuKnox's documentation or in its own client code. No `Idempotency`
+    pointer is emitted. An agent retrying a failed mutating call has no published guarantee
+    about duplication.
+reversibility:
+  grade: none
+  read_only: false
+  reversal_operations: []
+  windows: []
+  note: >-
+    AccuKnox's platform has a real write surface — token creation, integration and webhook
+    configuration, policy application, finding status and ignore actions — but none of it is
+    described in a public API reference, and no cancel/undo/restore operation or reversal
+    window is documented anywhere on help.accuknox.com. This is not `na`: the API is not
+    read-only. It is an undocumented reversibility posture, which is the finding. The
+    interactive Swagger surface that would carry these operations is behind a Django admin
+    login at https://cspm.accuknox.com/api/swagger/.
+dry_run_mode:
+  supported: false
+  note: >-
+    No dry-run, preview or validate-only mode is documented for any operation. knoxctl
+    exposes scan-and-report flows but no --dry-run flag is published.
+cross_links:
+  authentication: authentication/accuknox-authentication.yml
+  errors: errors/accuknox-error-codes.yml
+  lifecycle: lifecycle/accuknox-lifecycle.yml
+  rate_limits: rate-limits/accuknox-rate-limits.yml
+  webhooks: asyncapi/accuknox-webhooks.yml

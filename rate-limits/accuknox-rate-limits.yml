@@ -1,0 +1,23 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  help.accuknox.com (492-URL sitemap searched for a limits/throttling page) and live
+  anonymous responses from https://cspm.accuknox.com
+limit_count: 0
+documented: false
+note: >-
+  No rate limits are published. AccuKnox's help centre has no throttling, quota or limits
+  page, and no RateLimit-*, X-RateLimit-* or Retry-After header appeared on any anonymous
+  response observed. The only pagination ceiling visible anywhere is the page_size default
+  of 100 that AccuKnox's own MCP client uses against /api/v1/assets, which is a client
+  default rather than a server limit. An agent has no published signal telling it when it is
+  being throttled or when to retry — the honest zero here is the finding.
+limits: []
+response_headers:
+  observed: []
+  documented: []
+exhaustion_status: null
+evidence:
+- {url: 'https://cspm.accuknox.com/api/v1/assets', status: 403, note: 'no rate-limit headers on the response'}
+- {url: 'https://cspm.accuknox.com/api/v1/jwks/', status: 200, note: 'no rate-limit headers on the response'}
+- {url: 'https://help.accuknox.com/sitemap.xml', status: 200, note: 'no rate-limit / throttling / quota page among 492 URLs'}

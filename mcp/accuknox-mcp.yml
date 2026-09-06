@@ -1,0 +1,87 @@
+generated: '2026-09-06'
+method: searched
+source: https://github.com/accuknox/mcp_server
+status: published
+note: >-
+  AccuKnox publishes a first-party MCP server in its own GitHub organization. It is a
+  Python FastMCP server distributed as SOURCE — there is no npm or PyPI package and no
+  hosted remote endpoint AccuKnox operates. A human clones the repo, installs
+  requirements.txt, sets ACCUKNOX_BASE_URL + ACCUKNOX_API_TOKEN in a .env file, and runs
+  it over stdio (MCP_server.py) or as a self-hosted streamable-HTTP server
+  (fastmcp_server.py, default http://localhost:8000). Tools were read verbatim from the
+  server source; they were not introspected over the wire, because the server does not
+  run anywhere an anonymous client can reach.
+deployment:
+  mode: local-stdio
+  install: "git clone https://github.com/accuknox/mcp_server && pip install -r requirements.txt && python3 MCP_server.py"
+  package: https://github.com/accuknox/mcp_server
+  auth: api-key
+  verified: searched
+server:
+  name: AccuKnox Asset Manager
+  transport: stdio
+  framework: FastMCP (Python)
+  self_hosted_http:
+    entrypoint: fastmcp_server.py
+    default_url: http://localhost:8000
+    note: >-
+      Optional self-hosted HTTP transport the operator runs themselves. It is not an
+      AccuKnox-operated endpoint, so `mode` stays local-stdio.
+    auth: JWT bearer verified against <ACCUKNOX_BASE_URL>/api/v1/jwks/ (RS256)
+  configuration:
+    ACCUKNOX_BASE_URL: https://cspm.demo.accuknox.com
+    ACCUKNOX_API_TOKEN: AccuKnox API token issued from Settings -> Tokens in the CSPM console
+  backing_api: https://cspm.accuknox.com (per-tenant cspm.<tenant>.accuknox.com)
+tools:
+- name: search_assets
+  description: >-
+    READ-ONLY. Search and filter cloud infrastructure assets by id, type name, type
+    category, label, region, cloud provider, deployment state and date window; returns a
+    list or a count.
+  source: shared/tools.py search_assets_tool
+  backing_endpoint: GET /api/v1/assets
+  transports: [stdio, http]
+- name: get_model_vulnerabilities
+  description: >-
+    READ-ONLY. AI/ML model security issue summary across ML models, LLM models and
+    datasets, broken down by risk factor.
+  source: shared/tools.py get_model_vulnerabilities_tool
+  backing_endpoint: GET /api/v1/modelknox/dashboard/ondemand-model-issues-summary/
+  transports: [stdio, http]
+- name: data_type_selection
+  description: >-
+    Unified list of the finding data types available to the other finding tools (Cloud
+    Findings, Container Image Findings, STIG Findings, LLM Findings, All Findings, and
+    others).
+  source: fastmcp_server.py
+  transports: [http]
+- name: get_finding_config
+  description: >-
+    Retrieve finding configuration metadata for a data type — the valid display_fields,
+    filter_fields and group_by values for a later get_finding call.
+  source: fastmcp_server.py
+  transports: [http]
+- name: get_finding
+  description: >-
+    Fetch findings for a data type with ordering, pagination (page / page_size),
+    extra_filters, display_fields, group_by and free-text search.
+  source: fastmcp_server.py
+  transports: [http]
+- name: get_finding_filter
+  description: >-
+    Return the dropdown filter values available for a given filter_field and data type.
+  source: fastmcp_server.py
+  transports: [http]
+- name: get_finding_funnel
+  description: >-
+    Build a funnel over a finding data type — narrow findings through up to six ordered
+    filter stages and return the count remaining at each stage.
+  source: fastmcp_server.py
+  transports: [http]
+tool_count: 7
+x-evidence:
+- {url: 'https://github.com/accuknox/mcp_server', status: 200, kind: repository}
+- {url: 'https://raw.githubusercontent.com/accuknox/mcp_server/main/Readme.md', status: 200}
+- {url: 'https://raw.githubusercontent.com/accuknox/mcp_server/main/USER_GUIDE.md', status: 200}
+- {url: 'https://raw.githubusercontent.com/accuknox/mcp_server/main/shared/api.py', status: 200}
+- {url: 'https://raw.githubusercontent.com/accuknox/mcp_server/main/fastmcp_server.py', status: 200}

@@ -1,0 +1,148 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  help.accuknox.com documentation, AccuKnox's published .proto contracts in grpc/, and live
+  anonymous probes of cspm.accuknox.com.
+note: >-
+  Every entry below cites where the evidence was read. Entries marked
+  `evidence_level: contract` are visible in a machine-readable artifact AccuKnox publishes
+  (a .proto, a documented payload shape, a live endpoint). Entries marked
+  `evidence_level: documentation` are stated in AccuKnox's docs but cannot be checked
+  against a contract, because AccuKnox publishes no OpenAPI. AccuKnox's /compliance page is
+  a PRODUCT capability list — 33+ frameworks its platform scans customers against — and is
+  NOT a statement that AccuKnox itself holds those certifications, so no `Compliance`
+  pointer is emitted and no certification is asserted on AccuKnox's behalf.
+standards:
+- id: oauth2
+  conforms: true
+  evidence_level: documentation
+  evidence: >-
+    Authorization-code flow with registered client id/secret and redirect URIs;
+    /api/v1/o/authorize/ and /api/v1/o/token/ documented at
+    https://help.accuknox.com/integrations/oauth/
+- id: rfc7517-jwks
+  conforms: true
+  evidence_level: contract
+  evidence: >-
+    Live anonymous RSA JWK Set at https://cspm.accuknox.com/api/v1/jwks/ (HTTP 200,
+    application/json, kty RSA, alg RS256, use sig).
+- id: rfc7519-jwt
+  conforms: true
+  evidence_level: contract
+  evidence: >-
+    AccuKnox's own MCP server verifies RS256 JWTs against the tenant JWKS
+    (github.com/accuknox/mcp_server shared/utils/auth_validator.py).
+- id: oidc-discovery
+  conforms: false
+  evidence: >-
+    /.well-known/openid-configuration returned 404 on every AccuKnox host probed. OAuth is
+    offered without an OIDC discovery document.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors are served as {"detail": ...} or {"error": {...}} with content-type
+    application/json, never application/problem+json. See errors/accuknox-error-codes.yml.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: >-
+    /.well-known/security.txt returned 404 on every host. A disclosure programme exists at
+    https://accuknox.com/security-advisories but is not machine-discoverable.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No deprecation or sunset policy is published. See lifecycle/accuknox-lifecycle.yml.
+- id: openapi
+  conforms: false
+  evidence: >-
+    Swagger UI and ReDoc exist at /api/swagger/ and /api/redoc/ but 302 to the Django admin
+    login; no anonymous machine-readable document is served on any tenant host.
+- id: grpc-protobuf3
+  conforms: true
+  evidence_level: contract
+  evidence: >-
+    Eleven proto3 contracts published in AccuKnox's own GitHub organization — 12 services
+    and 31 RPCs across Discovery Engine and SentryFlow. Saved verbatim in grpc/.
+- id: mcp
+  conforms: true
+  evidence_level: contract
+  evidence: >-
+    First-party FastMCP server at github.com/accuknox/mcp_server exposing 7 tools over
+    stdio and self-hosted streamable HTTP. See mcp/accuknox-mcp.yml.
+- id: pagination
+  conforms: true
+  evidence_level: contract
+  evidence: >-
+    page / page_size query parameters with count + results response fields, observed in
+    AccuKnox's own client against /api/v1/assets.
+- id: idempotency
+  conforms: false
+  evidence: >-
+    No idempotency key mechanism is documented or present in AccuKnox's own client code.
+    See conventions/accuknox-conventions.yml.
+- id: a2a-agent-card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json returned 404 on every host
+    that is not an SPA catch-all. No card is published.
+domain_standards:
+- id: sarif
+  name: OASIS SARIF (Static Analysis Results Interchange Format)
+  direction: ingest
+  conforms: true
+  evidence_level: documentation
+  version_declared: null
+  evidence: >-
+    "AccuKnox supports importing findings in the SARIF format, allowing you to consolidate
+    security results from various tools into a single platform." —
+    https://help.accuknox.com/getting-started/sarif-findings/
+  note: >-
+    This is the domain interchange standard for AccuKnox's market. A buyer whose scanners
+    already emit SARIF needs no bespoke connector. The SARIF version is not declared, which
+    is the gap.
+- id: cyclonedx
+  name: OWASP CycloneDX
+  direction: ingest-and-generate
+  conforms: true
+  evidence_level: documentation
+  version_declared: null
+  evidence: >-
+    AccuKnox accepts "standard SBOM formats such as CycloneDX and SPDX" and generates
+    SBOM/CBOM/AIBOM through knoxctl and CI/CD — https://help.accuknox.com/faqs/sbom/ and
+    https://help.accuknox.com/getting-started/xbom-setup/
+- id: spdx
+  name: Linux Foundation SPDX
+  direction: ingest-and-generate
+  conforms: true
+  evidence_level: documentation
+  version_declared: null
+  evidence: https://help.accuknox.com/faqs/sbom/
+- id: mitre-attack
+  name: MITRE ATT&CK technique identifiers
+  direction: emit
+  conforms: true
+  evidence_level: contract
+  evidence: >-
+    Published webhook payload carries ATT&CK technique ids verbatim in a Tags field —
+    "Tags": "MITRE_T1036,MITRE_T1565" —
+    https://help.accuknox.com/integrations/webhook-integration/
+- id: cis-benchmarks
+  name: CIS Benchmarks
+  direction: evaluate
+  conforms: true
+  evidence_level: documentation
+  evidence: >-
+    CIS Kubernetes, cloud and Microsoft 365 benchmark scanning —
+    https://help.accuknox.com/how-to/cis-benchmarking/
+- id: disa-stig
+  name: DISA STIG
+  direction: evaluate
+  conforms: true
+  evidence_level: documentation
+  evidence: >-
+    STIG findings as a first-class finding data type (exposed as a data_type in AccuKnox's
+    own MCP server) and Ubuntu 22.04/24.04 STIG profiles in the v3.6 release notes.
+certifications_held_by_accuknox: []
+certifications_note: >-
+  AccuKnox publishes no trust centre and states no third-party certification of its own.
+  trust.accuknox.com and security.accuknox.com do not resolve; accuknox.com/trust and
+  /security return 404. The 33+ frameworks on accuknox.com/compliance are what the product
+  assesses customers against.

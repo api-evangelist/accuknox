@@ -1,0 +1,29 @@
+generated: '2026-09-06'
+method: searched
+source: https://help.accuknox.com/getting-started/accuknox-release-notes/
+versioning:
+  scheme: uri-path
+  current: v1
+  path_prefix: /api/v1/
+  note: >-
+    The REST surface is pinned at /api/v1/. The visible product version train (v3.6) is the
+    SaaS platform release, not the API version, and the two do not move together.
+product_versioning:
+  scheme: major.minor
+  current: '3.6'
+  docs: https://help.accuknox.com/getting-started/accuknox-release-notes/
+deprecation:
+  policy_url: null
+  sunset_header: null
+  note: >-
+    No deprecation or sunset policy is published, and no RFC 8594 Sunset/Deprecation header
+    support is documented. No `Deprecation` pointer is emitted.
+sla:
+  url: null
+  uptime_target: null
+status_page: https://status.accuknox.com/
+status_page_probe: {url: 'https://status.accuknox.com/', status: 200, title: 'Accuknox status'}
+support:
+  portal: https://accu-knox.atlassian.net/servicedesk/customer/portal/1
+  hours: 24/7 support ticket portal
+deprecated_operations: []

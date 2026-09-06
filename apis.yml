@@ -1,23 +1,186 @@
 aid: accuknox
 name: AccuKnox
-description: 'AccuKnox is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'AccuKnox is a cloud-native application protection platform (CNAPP) vendor
+  built on a Zero Trust model, covering cloud security posture management (CSPM), workload
+  and Kubernetes runtime security (CWPP), application security posture management (ASPM),
+  AI/ML model security (AI-SPM / ModelKnox) and API security. It originated the open
+  source KubeArmor eBPF/LSM runtime enforcement engine (a CNCF project) and publishes
+  the Discovery Engine and SentryFlow gRPC services, a knoxctl CLI, a Terraform provider,
+  a first-party Model Context Protocol server, and a token-authenticated REST API on
+  per-tenant cspm.*.accuknox.com hosts.'
+image: https://accuknox.com/wp-content/uploads/accuknox-logo-2.png
 url: https://raw.githubusercontent.com/api-evangelist/accuknox/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-09-06'
 modified: '2026-09-06'
+position: Producing
 tags:
 - Company
-apis: []
+- Security
+- Cloud Security
+- Cloud Native Application Protection Platform
+- Kubernetes Security
+- Runtime Security
+- Zero Trust
+- DevSecOps
+- Compliance
+- AI Security
+- Vulnerability Management
+- Container Security
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: accuknox-saas-platform-api
+  name: AccuKnox SaaS Platform API
+  image: https://accuknox.com/wp-content/uploads/accuknox-logo-2.png
+  description: 'Token-authenticated REST API behind the AccuKnox SaaS console, serving
+    asset inventory, security findings, AI/ML model risk (ModelKnox) and tenant configuration
+    under an /api/v1/ path prefix. Served per tenant on cspm.<tenant>.accuknox.com;
+    the interactive Swagger/ReDoc surface at /api/swagger/ and /api/redoc/ is behind
+    a Django admin login, so no public machine-readable contract is published.'
+  humanURL: https://help.accuknox.com/integrations/oauth/
+  baseURL: https://cspm.accuknox.com
+  tags:
+  - Security
+  - Cloud Security
+  - Findings
+  - Asset Inventory
+  properties:
+  - type: Authentication
+    url: authentication/accuknox-authentication.yml
+  - type: Conventions
+    url: conventions/accuknox-conventions.yml
+  - type: ErrorCatalog
+    url: errors/accuknox-error-codes.yml
+- aid: accuknox-discovery-engine
+  name: AccuKnox Discovery Engine gRPC API
+  image: https://accuknox.com/wp-content/uploads/accuknox-logo-2.png
+  description: 'gRPC services for AccuKnox Discovery Engine (knoxAutoPolicy), which
+    auto-discovers least-permissive network and system policies from observed workload
+    behaviour. Nine published proto3 contracts covering policy analysis, configuration,
+    consumer/worker control, observability summaries, insights, publishing and licensing.
+    Self-hosted in-cluster; no public base URL is published.'
+  humanURL: https://github.com/accuknox/discovery-engine
+  properties:
+  - type: Protobuf
+    url: grpc/accuknox-discovery-engine-analyzer.proto
+  - type: Protobuf
+    url: grpc/accuknox-discovery-engine-config.proto
+  - type: Protobuf
+    url: grpc/accuknox-discovery-engine-consumer.proto
+  - type: Protobuf
+    url: grpc/accuknox-discovery-engine-discovery.proto
+  - type: Protobuf
+    url: grpc/accuknox-discovery-engine-insight.proto
+  - type: Protobuf
+    url: grpc/accuknox-discovery-engine-license.proto
+  - type: Protobuf
+    url: grpc/accuknox-discovery-engine-observability.proto
+  - type: Protobuf
+    url: grpc/accuknox-discovery-engine-publisher.proto
+  - type: Protobuf
+    url: grpc/accuknox-discovery-engine-worker.proto
+  - type: SourceCode
+    url: https://github.com/accuknox/discovery-engine
+- aid: accuknox-sentryflow
+  name: AccuKnox SentryFlow API Observability gRPC API
+  image: https://accuknox.com/wp-content/uploads/accuknox-logo-2.png
+  description: 'gRPC services for SentryFlow, AccuKnox''s API observability and classification
+    component. Streams API access logs, API events and Envoy/API metrics from service
+    mesh and ingress data planes, and classifies observed API endpoints. Self-hosted;
+    no public base URL is published.'
+  humanURL: https://github.com/accuknox/SentryFlow
+  properties:
+  - type: Protobuf
+    url: grpc/accuknox-sentryflow.proto
+  - type: Protobuf
+    url: grpc/accuknox-sentryflow-metrics.proto
+  - type: SourceCode
+    url: https://github.com/accuknox/SentryFlow
+- aid: accuknox-mcp-server
+  name: AccuKnox MCP Server
+  image: https://accuknox.com/wp-content/uploads/accuknox-logo-2.png
+  description: 'First-party Model Context Protocol server published by AccuKnox that
+    exposes the SaaS Platform API to agents as MCP tools for asset search, finding
+    retrieval, finding filters and funnels, and AI/ML model vulnerability summaries.
+    Distributed as source on GitHub and run locally over stdio (or self-hosted over
+    streamable HTTP); AccuKnox operates no hosted remote MCP endpoint.'
+  humanURL: https://github.com/accuknox/mcp_server
+  properties:
+  - type: MCPServer
+    url: mcp/accuknox-mcp.yml
+  - type: SourceCode
+    url: https://github.com/accuknox/mcp_server
 common:
+- type: DomainSecurity
+  url: security/accuknox-domain-security.yml
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://accuknox.com/
+- type: DeveloperPortal
+  url: https://help.accuknox.com/
+- type: Documentation
+  url: https://help.accuknox.com/
+- type: GettingStarted
+  url: https://help.accuknox.com/how-to/
+- type: Support
+  url: https://accu-knox.atlassian.net/servicedesk/customer/portal/1
+- type: Blog
+  url: https://accuknox.com/blog
+- type: BlogRSS
+  url: https://accuknox.com/feed
+- type: GitHubOrganization
+  url: https://github.com/accuknox
+- type: Pricing
+  url: https://accuknox.com/pricing
+- type: SignUp
+  url: https://accuknox.com/free-trial
+- type: TermsOfService
+  url: https://accuknox.com/terms-of-use
+- type: PrivacyPolicy
+  url: https://accuknox.com/privacy-policy
+- type: StatusPage
+  url: https://status.accuknox.com/
+- type: ChangeLog
+  url: https://help.accuknox.com/getting-started/accuknox-release-notes/
+- type: SourceCode
+  url: https://accuknox.com/open-source-repos
+- type: LLMsTxt
+  url: llms/accuknox-llms.txt
+- type: Packages
+  url: packages/accuknox-packages.yml
+- type: CLI
+  url: cli/accuknox-cli.yml
+- type: MCPServer
+  url: mcp/accuknox-mcp.yml
+- type: Authentication
+  url: authentication/accuknox-authentication.yml
+- type: Conventions
+  url: conventions/accuknox-conventions.yml
+- type: ErrorCatalog
+  url: errors/accuknox-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/accuknox-lifecycle.yml
+- type: ChangeLog
+  url: changelog/accuknox-changelog.yml
+- type: Conformance
+  url: conformance/accuknox-conformance.yml
+- type: Webhooks
+  url: asyncapi/accuknox-webhooks.yml
+- type: Plans
+  url: plans/accuknox-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/accuknox-rate-limits.yml
+- type: VulnerabilityDisclosure
+  url: security/accuknox-vulnerability-disclosure.yml
+- type: Security
+  url: https://accuknox.com/security-advisories
+x-enrichment:
+  date: '2026-09-06'
+  status: enriched
+  artifacts_added: 28
+  pass: local-v3
