@@ -1,13 +1,12 @@
 aid: accuknox
 name: AccuKnox
-description: 'AccuKnox is a cloud-native application protection platform (CNAPP) vendor
-  built on a Zero Trust model, covering cloud security posture management (CSPM), workload
-  and Kubernetes runtime security (CWPP), application security posture management (ASPM),
-  AI/ML model security (AI-SPM / ModelKnox) and API security. It originated the open
-  source KubeArmor eBPF/LSM runtime enforcement engine (a CNCF project) and publishes
-  the Discovery Engine and SentryFlow gRPC services, a knoxctl CLI, a Terraform provider,
-  a first-party Model Context Protocol server, and a token-authenticated REST API on
-  per-tenant cspm.*.accuknox.com hosts.'
+description: AccuKnox is a cloud-native application protection platform (CNAPP) vendor built on a Zero
+  Trust model, covering cloud security posture management (CSPM), workload and Kubernetes runtime security
+  (CWPP), application security posture management (ASPM), AI/ML model security (AI-SPM / ModelKnox) and
+  API security. It originated the open source KubeArmor eBPF/LSM runtime enforcement engine (a CNCF project)
+  and publishes the Discovery Engine and SentryFlow gRPC services, a knoxctl CLI, a Terraform provider,
+  a first-party Model Context Protocol server, and a token-authenticated REST API on per-tenant cspm.*.accuknox.com
+  hosts.
 image: https://accuknox.com/wp-content/uploads/accuknox-logo-2.png
 url: https://raw.githubusercontent.com/api-evangelist/accuknox/refs/heads/main/apis.yml
 x-type: company
@@ -35,14 +34,13 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 apis:
-- aid: accuknox-saas-platform-api
+- aid: accuknox:accuknox-saas-platform-api
   name: AccuKnox SaaS Platform API
   image: https://accuknox.com/wp-content/uploads/accuknox-logo-2.png
-  description: 'Token-authenticated REST API behind the AccuKnox SaaS console, serving
-    asset inventory, security findings, AI/ML model risk (ModelKnox) and tenant configuration
-    under an /api/v1/ path prefix. Served per tenant on cspm.<tenant>.accuknox.com;
-    the interactive Swagger/ReDoc surface at /api/swagger/ and /api/redoc/ is behind
-    a Django admin login, so no public machine-readable contract is published.'
+  description: Token-authenticated REST API behind the AccuKnox SaaS console, serving asset inventory,
+    security findings, AI/ML model risk (ModelKnox) and tenant configuration under an /api/v1/ path prefix.
+    Served per tenant on cspm.<tenant>.accuknox.com; the interactive Swagger/ReDoc surface at /api/swagger/
+    and /api/redoc/ is behind a Django admin login, so no public machine-readable contract is published.
   humanURL: https://help.accuknox.com/integrations/oauth/
   baseURL: https://cspm.accuknox.com
   tags:
@@ -57,14 +55,13 @@ apis:
     url: conventions/accuknox-conventions.yml
   - type: ErrorCatalog
     url: errors/accuknox-error-codes.yml
-- aid: accuknox-discovery-engine
+- aid: accuknox:accuknox-discovery-engine
   name: AccuKnox Discovery Engine gRPC API
   image: https://accuknox.com/wp-content/uploads/accuknox-logo-2.png
-  description: 'gRPC services for AccuKnox Discovery Engine (knoxAutoPolicy), which
-    auto-discovers least-permissive network and system policies from observed workload
-    behaviour. Nine published proto3 contracts covering policy analysis, configuration,
-    consumer/worker control, observability summaries, insights, publishing and licensing.
-    Self-hosted in-cluster; no public base URL is published.'
+  description: gRPC services for AccuKnox Discovery Engine (knoxAutoPolicy), which auto-discovers least-permissive
+    network and system policies from observed workload behaviour. Nine published proto3 contracts covering
+    policy analysis, configuration, consumer/worker control, observability summaries, insights, publishing
+    and licensing. Self-hosted in-cluster; no public base URL is published.
   humanURL: https://github.com/accuknox/discovery-engine
   properties:
   - type: Protobuf
@@ -87,13 +84,12 @@ apis:
     url: grpc/accuknox-discovery-engine-worker.proto
   - type: SourceCode
     url: https://github.com/accuknox/discovery-engine
-- aid: accuknox-sentryflow
+- aid: accuknox:accuknox-sentryflow
   name: AccuKnox SentryFlow API Observability gRPC API
   image: https://accuknox.com/wp-content/uploads/accuknox-logo-2.png
-  description: 'gRPC services for SentryFlow, AccuKnox''s API observability and classification
-    component. Streams API access logs, API events and Envoy/API metrics from service
-    mesh and ingress data planes, and classifies observed API endpoints. Self-hosted;
-    no public base URL is published.'
+  description: gRPC services for SentryFlow, AccuKnox's API observability and classification component.
+    Streams API access logs, API events and Envoy/API metrics from service mesh and ingress data planes,
+    and classifies observed API endpoints. Self-hosted; no public base URL is published.
   humanURL: https://github.com/accuknox/SentryFlow
   properties:
   - type: Protobuf
@@ -102,14 +98,13 @@ apis:
     url: grpc/accuknox-sentryflow-metrics.proto
   - type: SourceCode
     url: https://github.com/accuknox/SentryFlow
-- aid: accuknox-mcp-server
+- aid: accuknox:accuknox-mcp-server
   name: AccuKnox MCP Server
   image: https://accuknox.com/wp-content/uploads/accuknox-logo-2.png
-  description: 'First-party Model Context Protocol server published by AccuKnox that
-    exposes the SaaS Platform API to agents as MCP tools for asset search, finding
-    retrieval, finding filters and funnels, and AI/ML model vulnerability summaries.
-    Distributed as source on GitHub and run locally over stdio (or self-hosted over
-    streamable HTTP); AccuKnox operates no hosted remote MCP endpoint.'
+  description: First-party Model Context Protocol server published by AccuKnox that exposes the SaaS Platform
+    API to agents as MCP tools for asset search, finding retrieval, finding filters and funnels, and AI/ML
+    model vulnerability summaries. Distributed as source on GitHub and run locally over stdio (or self-hosted
+    over streamable HTTP); AccuKnox operates no hosted remote MCP endpoint.
   humanURL: https://github.com/accuknox/mcp_server
   properties:
   - type: MCPServer
