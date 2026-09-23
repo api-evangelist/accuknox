@@ -1,0 +1,35 @@
+# Front Door AI Index — accuknox — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: accuknox
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: accuknox.com
+  final_host: accuknox.com
+  ownership: own
+  owner: accuknox
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 130
+  host_score: 130
+  density: 42.13
+  words: 3086
+  tiers:
+    agentic: 23
+    core: 106
+    model: 1
+  ambiguous: 9
+  top_terms:
+    AI: 92
+    LLMs: 13
+    agent: 8
+    prompts: 8
+    agentic: 6
+    MCP: 4
+    copilot: 3
+    model context protocol: 2
+    ML: 1
+    OpenAI: 1
+    automation: 1
