@@ -7,6 +7,23 @@ description: AccuKnox is a cloud-native application protection platform (CNAPP) 
   and publishes the Discovery Engine and SentryFlow gRPC services, a knoxctl CLI, a Terraform provider,
   a first-party Model Context Protocol server, and a token-authenticated REST API on per-tenant cspm.*.accuknox.com
   hosts.
+deliveryModel:
+  model: saas
+  license_evidence:
+    not_product:
+    - accuknox/discovery-engine
+    - accuknox/mcp_server
+    - accuknox/sentryflow
+  open_source: unknown
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: low
+  source:
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
+  method: derived
 image: https://accuknox.com/wp-content/uploads/accuknox-logo-2.png
 url: https://raw.githubusercontent.com/api-evangelist/accuknox/refs/heads/main/apis.yml
 x-type: company
