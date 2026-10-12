@@ -1,0 +1,37 @@
+generated: '2026-10-13'
+method: searched
+checked:
+- https://aws.amazon.com/marketplace/
+- https://azuremarketplace.microsoft.com/
+marketplace_apps: []
+edges:
+- partner_name: AWS Marketplace
+  partner: amazon-web-services
+  partner_match: aggregator
+  type: marketplace
+  marketplace: aws-marketplace
+  channel: distribution
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://aws.amazon.com/marketplace/seller-profile?id=e6967a60-8127-4ddf-b905-ae4e3addbcd6
+  listing_count: 1
+  apps:
+  - AccuKnox AI-Powered Zero Trust Cloud Security with Compliance
+  seller_name: AccuKnox
+  detected_by: sweep-cloud-marketplaces.py
+  detected: '2026-10-13'
+- partner_name: Microsoft Azure Marketplace
+  partner: microsoft-azure
+  partner_match: aggregator
+  type: marketplace
+  marketplace: azure-marketplace
+  channel: distribution
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=Accuknox%2C%20Inc.
+  listing_count: 1
+  apps:
+  - AccuKnox Zero Trust CNAPP (Gen-AI Powered) Security
+  seller_name: Accuknox, Inc.
+  detected_by: sweep-cloud-marketplaces.py
+  detected: '2026-10-13'
