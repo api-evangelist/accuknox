@@ -39,3 +39,42 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: accuknox-go-module-proxy
+  label: Go module proxy
+  partner_name: Go module proxy
+  category: official SDK (Go)
+  type: register
+  channel: package-registry
+  evidence: https://pkg.go.dev/github.com/accuknox/accuknox-cli
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Go module proxy (public registry JSON)
+    spec_file: null
+    language: Go
+    packages:
+    - name: github.com/accuknox/accuknox-cli
+      version: v0.1.0
+      released: '2023-05-06'
+      released_field: Time
+      lapsed: true
+      page: https://pkg.go.dev/github.com/accuknox/accuknox-cli
+      repo_leg: github-org:accuknox
+      publisher_leg: org:accuknox
+      matched_by: github-org
+    - name: github.com/accuknox/accuknox-cli-v2
+      version: v0.10.1
+      released: '2026-07-14'
+      released_field: Time
+      lapsed: false
+      page: https://pkg.go.dev/github.com/accuknox/accuknox-cli-v2
+      repo_leg: github-org:accuknox
+      publisher_leg: org:accuknox
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
