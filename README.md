@@ -64,38 +64,130 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-AccuKnox is a Zero Trust cloud-native application protection platform (CNAPP) covering cloud
-security posture management (CSPM), workload and Kubernetes runtime security (CWPP),
-application security posture management (ASPM), AI/ML model security (AI-SPM / ModelKnox) and
-API security. AccuKnox originated KubeArmor, the eBPF/LSM runtime enforcement engine now
-governed as a CNCF project.
+AccuKnox is a cloud-native application protection platform (CNAPP) vendor built on a Zero Trust model, covering cloud security posture management (CSPM), workload and Kubernetes runtime security (CWPP), application security posture management (ASPM), AI/ML model security (AI-SPM / ModelKnox) and API security. It originated the open source KubeArmor eBPF/LSM runtime enforcement engine (a CNCF project) and publishes the Discovery Engine and SentryFlow gRPC services, a knoxctl CLI, a Terraform provider, a first-party Model Context Protocol server, and a token-authenticated REST API on per-tenant cspm.*.accuknox.com hosts.
 
-## What this profile found
+**Areas:** Company · Security · Cloud Security · Cloud Native Application Protection Platform · Kubernetes Security · Runtime Security · Zero Trust · DevSecOps · Compliance · AI Security · Vulnerability Management · Container Security
 
-- **REST API, no public contract.** A token-authenticated REST surface runs under `/api/v1/`
-  on per-tenant `cspm.<tenant>.accuknox.com` hosts. It is real and live — `/api/v1/assets`
-  answers `403 {"detail":"Authentication credentials were not provided."}` anonymously — but
-  the Swagger UI and ReDoc at `/api/swagger/` and `/api/redoc/` redirect to a Django admin
-  login, so no machine-readable OpenAPI is published. No OpenAPI was authored from the
-  observed endpoints.
-- **11 first-party Protobuf contracts**, saved verbatim in `grpc/` — 12 services and 31 RPCs
-  across [Discovery Engine](https://github.com/accuknox/discovery-engine) (policy discovery,
-  observability, config, worker/consumer control) and
-  [SentryFlow](https://github.com/accuknox/SentryFlow) (API observability and classification).
-- **A first-party MCP server** at [accuknox/mcp_server](https://github.com/accuknox/mcp_server)
-  — 7 tools over stdio, distributed as source. There is no hosted remote endpoint, so an agent
-  cannot reach AccuKnox without a human installing and running the server first.
-- **A published `/llms.txt`** at `https://accuknox.com/llms.txt` (HTTP 200), saved verbatim in
-  `llms/`. It is a 2.1 MB full-site content dump rather than a curated link index.
-- **`knoxctl`**, the first-party Go CLI, whose `knoxctl api` command group with `--json` and jq
-  filters is the most machine-usable published entry point to the platform.
-- **A coordinated disclosure programme** at `https://accuknox.com/security-advisories`
-  (security@accuknox.com), and a live status page at `https://status.accuknox.com/`.
+## AccuKnox on APIs.io
 
-## Honest gaps
+Everything profiled for AccuKnox is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/accuknox/](https://apis.io/providers/accuknox/)** — or go straight to one of the APIs or properties below.
 
-No OpenAPI, no AsyncAPI, no A2A agent card, no `/.well-known/` document on any host, no
-`security.txt`, no OIDC discovery, no published OAuth scopes, no rate limits, no public
-pricing, no idempotency mechanism, and no documented reversal operation or window for any
-write. Each of these is recorded as a measured absence with the URL and status that was
-probed, not as an omission.
+### APIs (4)
+
+- [AccuKnox SaaS Platform API](https://apis.io/apis/accuknox/accuknox-saas-platform-api/) — Token-authenticated REST API behind the AccuKnox SaaS console, serving asset inventory, security findings, AI/ML model risk (ModelKnox) and tenant…
+- [AccuKnox Discovery Engine gRPC API](https://apis.io/apis/accuknox/accuknox-discovery-engine/) — gRPC services for AccuKnox Discovery Engine (knoxAutoPolicy), which auto-discovers least-permissive network and system policies from observed workload…
+- [AccuKnox SentryFlow API Observability gRPC API](https://apis.io/apis/accuknox/accuknox-sentryflow/) — gRPC services for SentryFlow, AccuKnox's API observability and classification component. Streams API access logs, API events and Envoy/API metrics from…
+- [AccuKnox MCP Server](https://apis.io/apis/accuknox/accuknox-mcp-server/) — First-party Model Context Protocol server published by AccuKnox that exposes the SaaS Platform API to agents as MCP tools for asset search, finding…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Accuknox Webhooks](https://apis.io/asyncapis/accuknox/accuknox-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [AccuKnox Asset Manager](https://apis.io/servers/accuknox/accuknox-asset-manager/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Accuknox Authentication](https://apis.io/security/accuknox/accuknox-authentication/)
+- [Accuknox Domain Security](https://apis.io/security/accuknox/accuknox-domain-security/)
+- [Accuknox Vulnerability Disclosure](https://apis.io/security/accuknox/accuknox-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Accuknox Scopes](https://apis.io/scopes/accuknox/accuknox-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Accuknox Plans Pricing](https://apis.io/plans/accuknox/accuknox-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Accuknox Rate Limits](https://apis.io/rate-limits/accuknox/accuknox-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://accuknox.com/)
+- [Documentation](https://help.accuknox.com/)
+- [Getting started](https://help.accuknox.com/how-to/)
+- [Pricing](https://accuknox.com/pricing)
+- [Sign up](https://accuknox.com/free-trial)
+- [Support](https://accu-knox.atlassian.net/servicedesk/customer/portal/1)
+- [Changelog](https://help.accuknox.com/getting-started/accuknox-release-notes/)
+- [Blog](https://accuknox.com/blog)
+- [Security](https://accuknox.com/security-advisories)
+- [Terms of service](https://accuknox.com/terms-of-use)
+- [Privacy policy](https://accuknox.com/privacy-policy)
+- [GitHub](https://github.com/accuknox)
+- [Status](https://status.accuknox.com/)
+
+## API Evangelist rating
+
+**Kin Score 49.7** — developing · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 39.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 52.6 |
+| Developer ergonomics | 57.1 |
+| Access clarity | 44.7 |
+
+**Agent readiness 31.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 40.2** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/accuknox/](https://apis.io/providers/accuknox/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for AccuKnox: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/accuknox/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
