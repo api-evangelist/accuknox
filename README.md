@@ -99,27 +99,33 @@ Model Context Protocol servers that expose the API to agents.
 
 Authentication, trust centre, and vulnerability disclosure.
 
-- [Accuknox Authentication](https://apis.io/security/accuknox/accuknox-authentication/)
-- [Accuknox Domain Security](https://apis.io/security/accuknox/accuknox-domain-security/)
-- [Accuknox Vulnerability Disclosure](https://apis.io/security/accuknox/accuknox-vulnerability-disclosure/)
+- [AccuKnox Authentication](https://apis.io/security/accuknox/accuknox-authentication/)
+- [AccuKnox Domain Security](https://apis.io/security/accuknox/accuknox-domain-security/)
+- [AccuKnox Vulnerability Disclosure](https://apis.io/security/accuknox/accuknox-vulnerability-disclosure/)
 
 #### OAuth scopes (1)
 
 The permissions the API asks for.
 
-- [Accuknox Scopes](https://apis.io/scopes/accuknox/accuknox-scopes/)
+- [AccuKnox Scopes](https://apis.io/scopes/accuknox/accuknox-scopes/)
 
 #### Plans and pricing (1)
 
 Published plans, tiers and prices.
 
-- [Accuknox Plans Pricing](https://apis.io/plans/accuknox/accuknox-plans-pricing/)
+- [AccuKnox Plans Pricing](https://apis.io/plans/accuknox/accuknox-plans-pricing/)
 
 #### Rate limits (1)
 
 Published request limits.
 
-- [Accuknox Rate Limits](https://apis.io/rate-limits/accuknox/accuknox-rate-limits/)
+- [AccuKnox Rate Limits](https://apis.io/rate-limits/accuknox/accuknox-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [AccuKnox Finops](https://apis.io/finops/accuknox/accuknox-finops/)
 
 ## Where to find this API
 
@@ -141,18 +147,18 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 ## API Evangelist rating
 
-**Kin Score 49.7** — developing · rubric 0.25.0 · scored 2026-10-23
+**Kin Score 54.3** — strong · rubric 0.28.1 · scored 2026-11-21
 
 | Facet | Score |
 |---|---|
 | Discoverability | 68.3 |
 | Contract quality | 39.0 |
 | Contract governance | 18.2 |
-| Operational transparency | 52.6 |
+| Operational transparency | 54.8 |
 | Developer ergonomics | 57.1 |
-| Access clarity | 44.7 |
+| Access clarity | 66.0 |
 
-**Agent readiness 31.5** — agent-ready
+**Agent readiness 30.8** — agent-ready
 
 | Agent-readiness dimension | Result |
 |---|---|
@@ -177,6 +183,10 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Agentic Commerce | — |
 | Pagination Ratio | na |
 | Operation Distinctiveness | na |
+| MCP Tool Quality | na |
+| Onboarding Descriptor | — |
+| Dns Aid Index | na |
+| Markdown Negotiation | na |
 
 **Regulatory alignment 40.2** — Horizontal (data, software, accessibility, platform)
 
